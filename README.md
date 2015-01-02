@@ -22,6 +22,10 @@ SSHTunnel is a tiny small program to tunnel something through a SSH without any 
 - At the moment, SSHTunnel uses only the password authentication methods. Therefore, it is currently not possible to use e.g. a certificate, etc. Nevertheless, the implementation of this feature is possible.
 - The configuration must be provided by using the command-line arguments. It is currently not possible to use e.g. a configuration file.
 
+### Download
+Go and get the latest release from GitHub's release page: https://github.com/SommerEngineering/SSHTunnel/releases
+
+
 **Copyright © 2015 by Thorsten Sommer**
 
 *Based on damick's example code from http://stackoverflow.com/questions/21417223/simple-ssh-port-forward-in-golang*

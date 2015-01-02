@@ -6,7 +6,7 @@ import (
 )
 
 // The transfer function.
-func transfer(fromReader io.Reader, toWriter io.Writer, name string) {
+func transfer(fromReader io.Reader, toWriter io.Writer, name string, quit chan bool) {
 
 	log.Printf("%s transfer started.", name)
 
@@ -22,4 +22,6 @@ func transfer(fromReader io.Reader, toWriter io.Writer, name string) {
 	} else {
 		log.Printf("%s transfer closed.\n", name)
 	}
+
+	quit <- true
 }

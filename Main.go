@@ -2,13 +2,18 @@ package main
 
 import (
 	"golang.org/x/crypto/ssh"
-	"log"
-	"net"
+	"runtime"
 )
 
 func main() {
 
+	// Allow Go to use all CPUs:
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	// Read the configuration from the command-line args:
 	readFlags()
+
+	// Create the SSH configuration:
 	config := &ssh.ClientConfig{
 		User: username,
 		Auth: []ssh.AuthMethod{
@@ -18,20 +23,9 @@ func main() {
 		},
 	}
 
-	localListener, err := net.Listen(`tcp`, localAddrString)
-	if err != nil {
-		log.Printf("net.Listen failed: %v\n", err)
-	} else {
-		log.Println(`Listen to local address.`)
-	}
+	// Create the local end-point:
+	localListener := createLocalEndPoint()
 
-	for {
-		localConn, err := localListener.Accept()
-		if err != nil {
-			log.Printf("listen.Accept failed: %v\n", err)
-		} else {
-			log.Println(`Accepted a client.`)
-			go forward(localConn, config)
-		}
-	}
+	// Accept client connections (will block forever):
+	acceptClients(localListener, config)
 }

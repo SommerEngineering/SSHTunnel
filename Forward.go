@@ -9,6 +9,7 @@ import (
 
 func forward(localConn net.Conn, config *ssh.ClientConfig) {
 
+	defer localConn.Close()
 	currentRetriesServer := 0
 	currentRetriesRemote := 0
 	var sshClientConnection *ssh.Client = nil
@@ -39,6 +40,7 @@ func forward(localConn net.Conn, config *ssh.ClientConfig) {
 			// Success:
 			log.Println(`Connected to the SSH server ` + serverAddrString)
 			sshClientConnection = sshClientConn
+			defer sshClientConnection.Close()
 			break
 		}
 	}
@@ -67,6 +69,7 @@ func forward(localConn net.Conn, config *ssh.ClientConfig) {
 
 			// Fine, the connections are up and ready :-)
 			log.Printf("The remote end-point %s is connected.\n", remoteAddrString)
+			defer sshConn.Close()
 
 			// To be able to close down both transfer threads, we create a channel:
 			quit := make(chan bool)
@@ -88,10 +91,6 @@ func forward(localConn net.Conn, config *ssh.ClientConfig) {
 
 			// Now, close all the channels and therefore, force the other / second thread to go down:
 			log.Println(`Close now all connections.`)
-			sshConn.Close()
-			localConn.Close()
-			sshClientConnection.Close()
-
 			return
 		}
 	}

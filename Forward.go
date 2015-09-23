@@ -17,7 +17,7 @@ func forward(localConn net.Conn, config *ssh.ClientConfig) {
 	// Loop for retries:
 	for {
 
-		// Try to connect to the SSD server:
+		// Try to connect to the SSH server:
 		if sshClientConn, err := ssh.Dial(`tcp`, serverAddrString, config); err != nil {
 
 			// Failed:

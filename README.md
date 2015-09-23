@@ -25,7 +25,4 @@ SSHTunnel is a tiny small program to tunnel something through a SSH without any 
 ### Download
 Go and get the latest release from GitHub's release page: https://github.com/SommerEngineering/SSHTunnel/releases
 
-
-**Copyright © 2015 by Thorsten Sommer**
-
 *Based on damick's example code from http://stackoverflow.com/questions/21417223/simple-ssh-port-forward-in-golang*

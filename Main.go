@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/SommerEngineering/SSHTunnel/Tunnel"
 	"golang.org/x/crypto/ssh"
 	"runtime"
 )
@@ -9,7 +10,7 @@ import (
 func main() {
 
 	// Show the current version:
-	fmt.Println(`SSHTunnel v1.1.0`)
+	fmt.Println(`SSHTunnel v1.2.0`)
 
 	// Allow Go to use all CPUs:
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -29,18 +30,19 @@ func main() {
 	}
 
 	// Create the SSH configuration:
+	Tunnel.SetPassword4Callback(password)
 	config := &ssh.ClientConfig{
 		User: username,
 		Auth: []ssh.AuthMethod{
 			ssh.Password(password),
-			ssh.PasswordCallback(passwordCallback),
-			ssh.KeyboardInteractive(keyboardInteractiveChallenge),
+			ssh.PasswordCallback(Tunnel.PasswordCallback),
+			ssh.KeyboardInteractive(Tunnel.KeyboardInteractiveChallenge),
 		},
 	}
 
 	// Create the local end-point:
-	localListener := createLocalEndPoint()
+	localListener := Tunnel.CreateLocalEndPoint(localAddrString)
 
 	// Accept client connections (will block forever):
-	acceptClients(localListener, config)
+	Tunnel.AcceptClients(localListener, config, serverAddrString, remoteAddrString)
 }

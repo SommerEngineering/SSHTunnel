@@ -22,6 +22,7 @@ SSHTunnel is a tiny small program to tunnel something through a SSH without any 
 - At the moment, SSHTunnel uses only the password authentication methods. Therefore, it is currently not possible to use e.g. a certificate, etc. Nevertheless, the implementation of this feature is possible.
 - The configuration must be provided by using the command-line arguments. It is currently not possible to use e.g. a configuration file.
 - You can avoid the password argument if you prefer to provide the password on demand.
+- [Ocean Remote Connections](https://github.com/SommerEngineering/OceanRemoteConnections) is a simple GUI for SSH Tunnel, PuTTY, RDP and WinSCP.
 
 ### Download
 Go and get the latest release from the [release page](https://github.com/SommerEngineering/SSHTunnel/releases).
